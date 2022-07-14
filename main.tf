@@ -26,6 +26,16 @@ resource "vsphere_virtual_machine" "vm" {
   memory   = 1024
   guest_id = "other3xLinux64Guest"
 
+  ovf_deploy {
+    allow_unverified_ssl_cert = false
+    remote_ovf_url            = "https://templatefactory.rbx2b.pcc.ovh.net/Linux/Ubuntu_1804/Ubuntu_1804.ovf"
+    disk_provisioning         = "thin"
+    ip_protocol               = "IPV4"
+    ip_allocation_policy      = "STATIC_MANUAL"
+
+    }
+  }
+
   network_interface {
     network_id = data.vsphere_network.network.id
   }
@@ -34,4 +44,3 @@ resource "vsphere_virtual_machine" "vm" {
     label = "disk0"
     size  = 20
   }
-}
